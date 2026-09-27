@@ -1,16 +1,6 @@
-import i18n from "i18next";
+import i18n, { type BackendModule } from "i18next";
 import { initReactI18next } from "react-i18next";
-import de from "@/locales/de.json";
 import en from "@/locales/en.json";
-import es419 from "@/locales/es-419.json";
-import fr from "@/locales/fr.json";
-import id from "@/locales/id.json";
-import it from "@/locales/it.json";
-import nl from "@/locales/nl.json";
-import ptBR from "@/locales/pt-BR.json";
-import ru from "@/locales/ru.json";
-import tr from "@/locales/tr.json";
-import vi from "@/locales/vi.json";
 export type AppLanguage = "en" | "id" | "nl" | "de" | "es-419" | "fr" | "it" | "pt-BR" | "ru" | "tr" | "vi";
 export const APP_LANGUAGES: Array<{
     value: AppLanguage;
@@ -63,20 +53,26 @@ const englishMessageTemplates = flattenMessages(en).flatMap(([key, value]) => {
     source += escapeRegExp(value.slice(cursor)) + "$";
     return [{ key, placeholders, pattern: new RegExp(source) }];
 });
-void i18n.use(initReactI18next).init({
-    resources: {
-        de: { translation: de },
-        en: { translation: en },
-        "es-419": { translation: es419 },
-        fr: { translation: fr },
-        id: { translation: id },
-        it: { translation: it },
-        nl: { translation: nl },
-        "pt-BR": { translation: ptBR },
-        ru: { translation: ru },
-        tr: { translation: tr },
-        vi: { translation: vi },
+const localeLoaders = import.meta.glob<{
+    default: Record<string, unknown>;
+}>(["./locales/*.json", "!./locales/en.json"]);
+const lazyLocaleBackend: BackendModule = {
+    type: "backend",
+    init() { },
+    read(language, _namespace, callback) {
+        const load = localeLoaders[`./locales/${language}.json`];
+        if (!load) {
+            callback(new Error(`No translations for ${language}`), false);
+            return;
+        }
+        load().then((module) => callback(null, module.default), (error) => callback(error, false));
     },
+};
+void i18n.use(lazyLocaleBackend).use(initReactI18next).init({
+    resources: {
+        en: { translation: en },
+    },
+    partialBundledLanguages: true,
     lng: "en",
     fallbackLng: "en",
     supportedLngs: APP_LANGUAGES.map((language) => language.value),

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useLayoutEffect, useRef } from "react";
+import { useState, useEffect, useCallback, useLayoutEffect, useRef, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 import { Button } from "@/components/ui/button";
@@ -22,21 +22,7 @@ import { PlaylistInfo } from "@/components/PlaylistInfo";
 import { ArtistInfo } from "@/components/ArtistInfo";
 import { DownloadProgressToast } from "@/components/DownloadProgressToast";
 import { CooldownBanner } from "@/components/CooldownBanner";
-import { AudioAnalysisPage } from "@/components/AudioAnalysisPage";
-import { TempoKeyAnalyzerPage } from "@/components/TempoKeyAnalyzerPage";
-import { ReplayGainPage } from "@/components/ReplayGainPage";
-import { AudioConverterPage } from "@/components/AudioConverterPage";
-import { AudioResamplerPage } from "@/components/AudioResamplerPage";
-import { FileManagerPage } from "@/components/FileManagerPage";
-import { LyricsManagerPage } from "@/components/LyricsManagerPage";
-import { EnrichPage } from "@/components/EnrichPage";
-import { ToolsPage, type ToolGroup } from "@/components/ToolsPage";
-import { SettingsPage } from "@/components/SettingsPage";
-import { DebugLoggerPage } from "@/components/DebugLoggerPage";
-import { OtherProjects } from "@/components/OtherProjects";
-import { HistoryPage } from "@/components/HistoryPage";
-import { QueuePage } from "@/components/QueuePage";
-import { SupportPage } from "@/components/SupportPage";
+import type { ToolGroup } from "@/components/ToolsPage";
 import type { HistoryItem } from "@/components/FetchHistory";
 import { useDownload } from "@/hooks/useDownload";
 import { useQueue } from "@/hooks/useQueue";
@@ -50,6 +36,21 @@ import { ensureApiStatusCheckStarted } from "@/lib/api-status";
 import { useDownloadProgress } from "@/hooks/useDownloadProgress";
 import { buildPlaylistFolderName } from "@/lib/playlist";
 import { isNewerVersion } from "@/lib/version";
+const AudioAnalysisPage = lazy(() => import("@/components/AudioAnalysisPage").then((module) => ({ default: module.AudioAnalysisPage })));
+const TempoKeyAnalyzerPage = lazy(() => import("@/components/TempoKeyAnalyzerPage").then((module) => ({ default: module.TempoKeyAnalyzerPage })));
+const ReplayGainPage = lazy(() => import("@/components/ReplayGainPage").then((module) => ({ default: module.ReplayGainPage })));
+const AudioConverterPage = lazy(() => import("@/components/AudioConverterPage").then((module) => ({ default: module.AudioConverterPage })));
+const AudioResamplerPage = lazy(() => import("@/components/AudioResamplerPage").then((module) => ({ default: module.AudioResamplerPage })));
+const FileManagerPage = lazy(() => import("@/components/FileManagerPage").then((module) => ({ default: module.FileManagerPage })));
+const LyricsManagerPage = lazy(() => import("@/components/LyricsManagerPage").then((module) => ({ default: module.LyricsManagerPage })));
+const EnrichPage = lazy(() => import("@/components/EnrichPage").then((module) => ({ default: module.EnrichPage })));
+const ToolsPage = lazy(() => import("@/components/ToolsPage").then((module) => ({ default: module.ToolsPage })));
+const SettingsPage = lazy(() => import("@/components/SettingsPage").then((module) => ({ default: module.SettingsPage })));
+const DebugLoggerPage = lazy(() => import("@/components/DebugLoggerPage").then((module) => ({ default: module.DebugLoggerPage })));
+const OtherProjects = lazy(() => import("@/components/OtherProjects").then((module) => ({ default: module.OtherProjects })));
+const HistoryPage = lazy(() => import("@/components/HistoryPage").then((module) => ({ default: module.HistoryPage })));
+const QueuePage = lazy(() => import("@/components/QueuePage").then((module) => ({ default: module.QueuePage })));
+const SupportPage = lazy(() => import("@/components/SupportPage").then((module) => ({ default: module.SupportPage })));
 const HISTORY_KEY = "spotiflac_fetch_history";
 const MAX_HISTORY = 5;
 const TOOL_NAVIGATION_PAGES = new Set<PageType>(["tools", "audio-analysis", "tempo-key-analyzer", "replaygain", "audio-converter", "audio-resampler", "file-manager", "lyrics-manager", "enrich"]);
@@ -793,7 +794,7 @@ function App() {
             <div ref={contentScrollRef} className="fixed top-10 right-0 bottom-0 left-14 overflow-y-auto overflow-x-hidden">
                 <div className="p-4 md:p-8">
                     <div className={`${usesWideContent ? "w-full" : "max-w-4xl mx-auto"} space-y-6`}>
-                        {renderPage()}
+                        <Suspense fallback={null}>{renderPage()}</Suspense>
                     </div>
                 </div>
             </div>
