@@ -10,7 +10,7 @@ import type { HistoryItem } from "@/components/FetchHistory";
 import { SearchSpotify, SearchSpotifyByType } from "../../wailsjs/go/main/App";
 import { backend } from "../../wailsjs/go/models";
 import { cn } from "@/lib/utils";
-import { useTypingEffect } from "@/hooks/useTypingEffect";
+import { useRotatingText } from "@/hooks/useRotatingText";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog";
 import { openExternal } from "@/lib/utils";
@@ -119,7 +119,7 @@ export function SearchBar({ url, loading, onUrlChange, onFetch, onFetchUrl, hist
     const nextDialogPromptedRef = useRef(false);
     const inputKind = classifySmartInput(url);
     const isSearchInput = inputKind === "search";
-    const placeholderText = useTypingEffect(SMART_PLACEHOLDERS);
+    const placeholderText = useRotatingText(SMART_PLACEHOLDERS);
     useEffect(() => {
         onSearchModeChange(isSearchInput);
     }, [isSearchInput, onSearchModeChange]);

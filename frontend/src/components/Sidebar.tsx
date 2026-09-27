@@ -83,7 +83,7 @@ export function Sidebar({ currentPage, onPageChange, queueBadgeCount = 0 }: Side
                 <Tooltip delayDuration={0}>
                     <TooltipTrigger asChild>
                         <Button variant={currentPage === "debug" ? "secondary" : "ghost"} size="icon" className={`h-10 w-10 ${currentPage === "debug" ? "bg-primary/10 text-primary hover:bg-primary/20" : "hover:bg-primary/10 hover:text-primary"}`} onClick={() => onPageChange("debug")}>
-                            <TerminalIcon size={20} loop={true}/>
+                            <TerminalIcon size={20}/>
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent side="right">
@@ -108,7 +108,7 @@ export function Sidebar({ currentPage, onPageChange, queueBadgeCount = 0 }: Side
                     <Tooltip delayDuration={0}>
                         <TooltipTrigger asChild>
                             <Button variant="ghost" size="icon" className="h-10 w-10 hover:bg-primary/10 hover:text-primary" onClick={() => setIsIssuesDialogOpen(true)}>
-                                <BugReportIcon size={20} loop={true}/>
+                                <BugReportIcon size={20}/>
                             </Button>
                         </TooltipTrigger>
                         <TooltipContent side="right">
@@ -151,7 +151,7 @@ export function Sidebar({ currentPage, onPageChange, queueBadgeCount = 0 }: Side
                 <Tooltip delayDuration={0}>
                     <TooltipTrigger asChild>
                         <Button variant={currentPage === "projects" ? "secondary" : "ghost"} size="icon" className={`h-10 w-10 ${currentPage === "projects" ? "bg-primary/10 text-primary hover:bg-primary/20" : "hover:bg-primary/10 hover:text-primary"}`} onClick={() => onPageChange("projects")}>
-                            <BlocksIcon size={20} loop={true}/>
+                            <BlocksIcon size={20}/>
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent side="right">
@@ -162,7 +162,7 @@ export function Sidebar({ currentPage, onPageChange, queueBadgeCount = 0 }: Side
                 <Tooltip delayDuration={0}>
                     <TooltipTrigger asChild>
                         <Button variant={currentPage === "support" ? "secondary" : "ghost"} size="icon" className={`h-10 w-10 ${currentPage === "support" ? "bg-primary/10 text-primary hover:bg-primary/20" : "hover:bg-primary/10 hover:text-primary"}`} onClick={() => onPageChange("support")}>
-                            <CoffeeIcon size={20} loop={true}/>
+                            <CoffeeIcon size={20}/>
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent side="right">

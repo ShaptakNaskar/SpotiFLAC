@@ -138,6 +138,17 @@ function parseStoredHistory(value: string | null): HistoryItem[] {
         return [];
     }
 }
+function FFmpegDownloadStats() {
+    const { t } = useTranslation();
+    const downloadProgress = useDownloadProgress();
+    if (!downloadProgress.is_downloading || downloadProgress.mb_downloaded <= 0) {
+        return null;
+    }
+    return (<span className="text-primary font-mono tabular-nums">
+            {downloadProgress.mb_downloaded.toFixed(1)}{t("literal.common.mb")}
+            {downloadProgress.speed_mbps > 0 && <> @ {downloadProgress.speed_mbps.toFixed(1)}{t("literal.downloadProgressToast.mbS")}</>}
+        </span>);
+}
 function App() {
     const { t } = useTranslation();
     const [currentPage, setCurrentPage] = useState<PageType>("main");
@@ -176,7 +187,6 @@ function App() {
     const lyrics = useLyrics();
     const cover = useCover();
     const availability = useAvailability();
-    const downloadProgress = useDownloadProgress();
     useEffect(() => {
         setSpotifyUrl(metadata.navigationUrl);
         setSmartSearchInput(metadata.navigationUrl);
@@ -891,10 +901,7 @@ function App() {
                                     <div className="flex justify-between text-[11px] font-bold">
                                         <div className="flex flex-col gap-0.5">
                                             <span className="text-muted-foreground uppercase tracking-wider">{t("translation.app.downloading")}</span>
-                                            {downloadProgress.is_downloading && downloadProgress.mb_downloaded > 0 && (<span className="text-primary font-mono tabular-nums">
-                                                    {downloadProgress.mb_downloaded.toFixed(1)}{t("literal.common.mb")}
-                                                    {downloadProgress.speed_mbps > 0 && <> @ {downloadProgress.speed_mbps.toFixed(1)}{t("literal.downloadProgressToast.mbS")}</>}
-                                                </span>)}
+                                            <FFmpegDownloadStats />
                                         </div>
                                         <span className="text-xl font-bold tracking-tighter text-primary">{ffmpegInstallProgress}%</span>
                                     </div>

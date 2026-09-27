@@ -1,6 +1,7 @@
 package backend
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"sync"
@@ -140,6 +141,24 @@ func GetDownloadProgress() ProgressInfo {
 		CooldownSecs:    cooldownSecs,
 		CooldownMessage: cdMessage,
 		CooldownEventID: cdEventID,
+	}
+}
+
+func WatchDownloadProgress(ctx context.Context, interval time.Duration, emit func(ProgressInfo)) {
+	ticker := time.NewTicker(interval)
+	defer ticker.Stop()
+
+	last := GetDownloadProgress()
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case <-ticker.C:
+			if current := GetDownloadProgress(); current != last {
+				last = current
+				emit(current)
+			}
+		}
 	}
 }
 

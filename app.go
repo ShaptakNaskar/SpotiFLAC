@@ -342,6 +342,10 @@ func (a *App) startup(ctx context.Context) {
 	if err := backend.SanitizePersistedConfigSettings(); err != nil {
 		fmt.Printf("Failed to sanitize persisted config settings: %v\n", err)
 	}
+
+	go backend.WatchDownloadProgress(ctx, 200*time.Millisecond, func(progress backend.ProgressInfo) {
+		runtime.EventsEmit(ctx, "download-progress", progress)
+	})
 }
 
 func (a *App) shutdown(ctx context.Context) {
