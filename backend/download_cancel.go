@@ -61,6 +61,13 @@ func ActiveDownloadContext() context.Context {
 	return downloadCancelState.ctx
 }
 
+func HasActiveDownloadScope() bool {
+	downloadCancelState.Lock()
+	defer downloadCancelState.Unlock()
+
+	return downloadCancelState.ctx != nil
+}
+
 func ForceStopActiveDownloads() {
 	downloadCancelState.Lock()
 	cancel := downloadCancelState.cancel

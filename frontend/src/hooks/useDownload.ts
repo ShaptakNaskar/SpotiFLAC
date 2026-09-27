@@ -431,7 +431,7 @@ export function useDownload() {
                             return response;
                         }
                         const errMsg = response.error || response.message || "Failed";
-                        if (isCooldownMessage(errMsg))
+                        if (response.cancelled || isCooldownMessage(errMsg))
                             return response;
                         fallbackErrors.push(`[Tidal] ${translateMessage(errMsg)}`);
                         lastResponse = response;
@@ -488,7 +488,7 @@ export function useDownload() {
                             return response;
                         }
                         const errMsg = response.error || response.message || "Failed";
-                        if (isCooldownMessage(errMsg))
+                        if (response.cancelled || isCooldownMessage(errMsg))
                             return response;
                         fallbackErrors.push(`[Amazon] ${translateMessage(errMsg)}`);
                         lastResponse = response;
@@ -545,7 +545,7 @@ export function useDownload() {
                             return response;
                         }
                         const errMsg = response.error || response.message || "Failed";
-                        if (isCooldownMessage(errMsg))
+                        if (response.cancelled || isCooldownMessage(errMsg))
                             return response;
                         fallbackErrors.push(`[Qobuz] ${translateMessage(errMsg)}`);
                         lastResponse = response;
@@ -777,7 +777,7 @@ export function useDownload() {
                             return response;
                         }
                         const errMsg = response.error || response.message || "Failed";
-                        if (isCooldownMessage(errMsg))
+                        if (response.cancelled || isCooldownMessage(errMsg))
                             return response;
                         fallbackErrors.push(`[Tidal] ${translateMessage(errMsg)}`);
                         lastResponse = response;
@@ -835,7 +835,7 @@ export function useDownload() {
                             return response;
                         }
                         const errMsg = response.error || response.message || "Failed";
-                        if (isCooldownMessage(errMsg))
+                        if (response.cancelled || isCooldownMessage(errMsg))
                             return response;
                         fallbackErrors.push(`[Amazon] ${translateMessage(errMsg)}`);
                         lastResponse = response;
@@ -894,7 +894,7 @@ export function useDownload() {
                             return response;
                         }
                         const errMsg = response.error || response.message || "Failed";
-                        if (isCooldownMessage(errMsg))
+                        if (response.cancelled || isCooldownMessage(errMsg))
                             return response;
                         fallbackErrors.push(`[Qobuz] ${translateMessage(errMsg)}`);
                         lastResponse = response;
@@ -1432,7 +1432,8 @@ export function useDownload() {
                     const collectionPosition = collectionTrackPositions.get(trackId) || originalIndex + 1;
                     const response = await downloadWithItemID(settings, itemID, track.name, track.artists, track.album_name, folderName, collectionPosition, track.spotify_id, track.duration_ms, isAlbum, releaseYear, track.album_artist || "", track.release_date, track.images, track.track_number, track.disc_number, track.total_tracks, track.total_discs, track.copyright, track.publisher);
                     if (response.cancelled || shouldStopDownloadRef.current) {
-                        toast.info(t("translation.download.stopped", { count: successCount, remaining: tracksToDownload.length - i }));
+                        if (!shouldPauseDownloadRef.current)
+                            toast.info(t("translation.download.stopped", { count: successCount, remaining: tracksToDownload.length - i }));
                         break;
                     }
                     if (response.success) {
@@ -1632,6 +1633,21 @@ export function useDownload() {
     const handleResumeDownload = () => {
         shouldPauseDownloadRef.current = false;
     };
+    const interruptServerBreakWait = () => {
+        void (async () => {
+            try {
+                const { GetDownloadProgress, ForceStopDownloads } = await import("../../wailsjs/go/main/App");
+                const progress = await GetDownloadProgress();
+                if (progress.is_downloading && progress.cooldown) {
+                    logger.info("pausing now instead of waiting for the server break to end");
+                    await ForceStopDownloads();
+                }
+            }
+            catch (err) {
+                console.error("Failed to interrupt server break wait:", err);
+            }
+        })();
+    };
     const handleStopDownload = () => {
         logger.info("download stopped by user");
         shouldPauseDownloadRef.current = false;
@@ -1664,6 +1680,7 @@ export function useDownload() {
         handleDownloadAll,
         handlePauseDownload,
         handleResumeDownload,
+        interruptServerBreakWait,
         handleStopDownload,
         resetDownloadedTracks,
     };

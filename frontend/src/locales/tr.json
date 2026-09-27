@@ -951,8 +951,8 @@
       "CooldownBanner": {
         "dismiss": "Azletmek",
         "checkDetails": "Ayrıntıları görüntüle",
-        "scheduledBreak_one": "Bu normaldir ve bir hata değildir. Sunucu kısa bir planlı mola veriyor. Lütfen yaklaşık {{count}} dakika sonra tekrar deneyin.",
-        "scheduledBreak_other": "Bu normaldir ve bir hata değildir. Sunucu kısa bir planlı mola veriyor. Lütfen yaklaşık {{count}} dakika sonra tekrar deneyin."
+        "scheduledBreak_one": "Bu normaldir ve bir hata değildir. Sunucu kısa bir planlı mola veriyor. İndirmeler yaklaşık {{count}} dakika sonra otomatik olarak devam edecek.",
+        "scheduledBreak_other": "Bu normaldir ve bir hata değildir. Sunucu kısa bir planlı mola veriyor. İndirmeler yaklaşık {{count}} dakika sonra otomatik olarak devam edecek."
       },
       "ArtistInfo": {
         "errorDownloadingHeader": "Başlık indirme hatası: {{value1}}",

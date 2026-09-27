@@ -8,6 +8,7 @@ interface QueueDownloadHandlers {
     handleDownloadAll: (tracks: TrackMetadata[], folderName?: string, isAlbum?: boolean, batchSource?: "playlist" | "album" | "discography" | "collection", queueItemId?: string, resumeContext?: QueueResumeContext) => Promise<QueueExecutionResult | undefined>;
     handlePauseDownload: () => void;
     handleResumeDownload: () => void;
+    interruptServerBreakWait: () => void;
     handleStopDownload: () => void;
 }
 function batchSourceFor(item: QueueItem): "playlist" | "album" | "discography" | "collection" {
@@ -142,6 +143,7 @@ export function useQueue(download: QueueDownloadHandlers) {
         if (activeItemRef.current?.type !== "track") {
             download.handlePauseDownload();
         }
+        download.interruptServerBreakWait();
     }, [download]);
     const stop = useCallback((type?: QueueItemType) => {
         if (!isProcessingRef.current)

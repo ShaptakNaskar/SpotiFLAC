@@ -17,6 +17,8 @@ const (
 	StatusSkipped     DownloadStatus = "skipped"
 )
 
+const cooldownEventGap = 5 * time.Minute
+
 type DownloadItem struct {
 	ID           string         `json:"id"`
 	TrackName    string         `json:"track_name"`
@@ -163,9 +165,12 @@ func SetCommunityCooldown(seconds float64, message string) {
 		cooldownUntilMs = 0
 		cooldownMessage = ""
 	} else {
-		cooldownUntilMs = getCurrentTimeMillis() + int64(seconds*1000)
+		now := getCurrentTimeMillis()
+		if now-cooldownUntilMs > cooldownEventGap.Milliseconds() {
+			cooldownEventID = now
+		}
+		cooldownUntilMs = now + int64(seconds*1000)
 		cooldownMessage = message
-		cooldownEventID++
 	}
 	cooldownLock.Unlock()
 }

@@ -951,8 +951,8 @@
       "CooldownBanner": {
         "dismiss": "Membubarkan",
         "checkDetails": "Lihat detail",
-        "scheduledBreak_one": "Ini normal dan bukan bug. Server sedang menjalani jeda singkat terjadwal. Silakan coba lagi dalam sekitar {{count}} menit.",
-        "scheduledBreak_other": "Ini normal dan bukan bug. Server sedang menjalani jeda singkat terjadwal. Silakan coba lagi dalam sekitar {{count}} menit."
+        "scheduledBreak_one": "Ini normal dan bukan bug. Server sedang menjalani jeda singkat terjadwal. Unduhan akan dilanjutkan secara otomatis dalam sekitar {{count}} menit.",
+        "scheduledBreak_other": "Ini normal dan bukan bug. Server sedang menjalani jeda singkat terjadwal. Unduhan akan dilanjutkan secara otomatis dalam sekitar {{count}} menit."
       },
       "ArtistInfo": {
         "errorDownloadingGalleryImage": "Kesalahan mengunduh gambar galeri {{value1}}: {{value2}}",

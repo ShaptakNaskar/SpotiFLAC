@@ -951,8 +951,8 @@
       "CooldownBanner": {
         "dismiss": "Despedir",
         "checkDetails": "Ver detalles",
-        "scheduledBreak_one": "Esto es normal y no es un error. El servidor está tomando una breve pausa programada. Inténtalo de nuevo en aproximadamente {{count}} minuto.",
-        "scheduledBreak_other": "Esto es normal y no es un error. El servidor está tomando una breve pausa programada. Inténtalo de nuevo en aproximadamente {{count}} minutos."
+        "scheduledBreak_one": "Esto es normal y no es un error. El servidor está tomando una breve pausa programada. Las descargas se reanudarán automáticamente en aproximadamente {{count}} minuto.",
+        "scheduledBreak_other": "Esto es normal y no es un error. El servidor está tomando una breve pausa programada. Las descargas se reanudarán automáticamente en aproximadamente {{count}} minutos."
       },
       "ArtistInfo": {
         "allImagesAlreadyExist": "Todas las {{value1}} imágenes ya existen",

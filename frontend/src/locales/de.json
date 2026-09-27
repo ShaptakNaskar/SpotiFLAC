@@ -977,8 +977,8 @@
       "CooldownBanner": {
         "dismiss": "Zurückweisen",
         "checkDetails": "Details anzeigen",
-        "scheduledBreak_one": "Das ist normal und kein Fehler. Der Server macht eine kurze, geplante Pause. Bitte versuche es in etwa {{count}} Minute erneut.",
-        "scheduledBreak_other": "Das ist normal und kein Fehler. Der Server macht eine kurze, geplante Pause. Bitte versuche es in etwa {{count}} Minuten erneut."
+        "scheduledBreak_one": "Das ist normal und kein Fehler. Der Server macht eine kurze, geplante Pause. Downloads werden in etwa {{count}} Minute automatisch fortgesetzt.",
+        "scheduledBreak_other": "Das ist normal und kein Fehler. Der Server macht eine kurze, geplante Pause. Downloads werden in etwa {{count}} Minuten automatisch fortgesetzt."
       },
       "DebugLoggerPage": {
         "failedToExport": "Export fehlgeschlagen: {{value1}}"

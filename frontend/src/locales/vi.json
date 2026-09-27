@@ -951,8 +951,8 @@
       "CooldownBanner": {
         "dismiss": "Miễn nhiệm",
         "checkDetails": "Xem chi tiết",
-        "scheduledBreak_one": "Đây là hoạt động bình thường, không phải lỗi. Máy chủ đang tạm nghỉ ngắn theo lịch. Vui lòng thử lại sau khoảng {{count}} phút.",
-        "scheduledBreak_other": "Đây là hoạt động bình thường, không phải lỗi. Máy chủ đang tạm nghỉ ngắn theo lịch. Vui lòng thử lại sau khoảng {{count}} phút."
+        "scheduledBreak_one": "Đây là hoạt động bình thường, không phải lỗi. Máy chủ đang tạm nghỉ ngắn theo lịch. Quá trình tải xuống sẽ tự động tiếp tục sau khoảng {{count}} phút.",
+        "scheduledBreak_other": "Đây là hoạt động bình thường, không phải lỗi. Máy chủ đang tạm nghỉ ngắn theo lịch. Quá trình tải xuống sẽ tự động tiếp tục sau khoảng {{count}} phút."
       },
       "ArtistInfo": {
         "errorDownloadingHeader": "Lỗi khi tải ảnh đầu trang: {{value1}}",

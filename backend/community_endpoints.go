@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math/rand/v2"
 	"net/http"
 	"strconv"
 	"strings"
@@ -125,6 +126,8 @@ const communityRateLimitMaxRetries = 6
 
 const communityRateLimitFallbackWait = 30 * time.Second
 
+const communityBreakResumeJitter = 30 * time.Second
+
 const communityCooldownNormalNotice = "This is normal and not a bug. "
 
 const communityCooldownFallbackMessage = "The server is taking a scheduled short break. Please try again in about %d minute(s)."
@@ -218,10 +221,25 @@ func newCommunityCooldownError(service string, resp *http.Response) *communityCo
 		message = communityCooldownNormalNotice + message
 	}
 
-	SetCommunityCooldown(float64(seconds), message)
-	fmt.Printf("%s community API on scheduled cooldown (503), back in ~%ds\n", service, seconds)
-
 	return &communityCooldownError{service: service, seconds: seconds, message: message}
+}
+
+func waitOutCommunityBreak(service string, resp *http.Response) error {
+	cooldown := newCommunityCooldownError(service, resp)
+	if !HasActiveDownloadScope() {
+		SetCommunityCooldown(float64(cooldown.seconds), cooldown.message)
+		fmt.Printf("%s community API on scheduled cooldown (503), back in ~%ds\n", service, cooldown.seconds)
+		return cooldown
+	}
+
+	wait := time.Duration(cooldown.seconds+1)*time.Second + rand.N(communityBreakResumeJitter)
+	SetCommunityCooldown(wait.Seconds(), cooldown.message)
+	fmt.Printf("%s community API on scheduled break (503), resuming automatically in ~%.0fs\n", service, wait.Seconds())
+	if err := SleepWithDownloadContext(wait); err != nil {
+		ClearCommunityCooldown()
+		return err
+	}
+	return nil
 }
 
 func doCommunityRequest(client *http.Client, service string, reqFn func() (*http.Request, error)) (*http.Response, error) {
@@ -240,7 +258,11 @@ func doCommunityRequest(client *http.Client, service string, reqFn func() (*http
 
 		if resp.StatusCode == http.StatusServiceUnavailable {
 			ClearRateLimitCooldown()
-			return nil, newCommunityCooldownError(service, resp)
+			if err := waitOutCommunityBreak(service, resp); err != nil {
+				return nil, err
+			}
+			attempt--
+			continue
 		}
 		if (resp.StatusCode == http.StatusUnauthorized || resp.StatusCode == http.StatusPreconditionRequired) && !verificationRetried {
 			resp.Body.Close()

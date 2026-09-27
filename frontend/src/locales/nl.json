@@ -951,8 +951,8 @@
       "CooldownBanner": {
         "dismiss": "Afwijzen",
         "checkDetails": "Details bekijken",
-        "scheduledBreak_one": "Dit is normaal en geen bug. De server neemt een korte, geplande pauze. Probeer het over ongeveer {{count}} minuut opnieuw.",
-        "scheduledBreak_other": "Dit is normaal en geen bug. De server neemt een korte, geplande pauze. Probeer het over ongeveer {{count}} minuten opnieuw."
+        "scheduledBreak_one": "Dit is normaal en geen bug. De server neemt een korte, geplande pauze. Downloads worden over ongeveer {{count}} minuut automatisch hervat.",
+        "scheduledBreak_other": "Dit is normaal en geen bug. De server neemt een korte, geplande pauze. Downloads worden over ongeveer {{count}} minuten automatisch hervat."
       },
       "AudioAnalysisPage": {
         "preparing": "Voorbereiden...",

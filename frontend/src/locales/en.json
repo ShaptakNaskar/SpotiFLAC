@@ -997,8 +997,8 @@
       "CooldownBanner": {
         "dismiss": "Dismiss",
         "checkDetails": "Check details",
-        "scheduledBreak_one": "This is normal and not a bug. The server is taking a scheduled short break. Please try again in about {{count}} minute.",
-        "scheduledBreak_other": "This is normal and not a bug. The server is taking a scheduled short break. Please try again in about {{count}} minutes."
+        "scheduledBreak_one": "This is normal and not a bug. The server is taking a scheduled short break. Downloads will resume automatically in about {{count}} minute.",
+        "scheduledBreak_other": "This is normal and not a bug. The server is taking a scheduled short break. Downloads will resume automatically in about {{count}} minutes."
       },
       "DebugLoggerPage": {
         "failedToExport": "Failed to export: {{value1}}"

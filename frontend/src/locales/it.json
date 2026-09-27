@@ -951,8 +951,8 @@
       "CooldownBanner": {
         "dismiss": "Congedare",
         "checkDetails": "Vedi dettagli",
-        "scheduledBreak_one": "È normale e non si tratta di un bug. Il server sta effettuando una breve pausa programmata. Riprova tra circa {{count}} minuto.",
-        "scheduledBreak_other": "È normale e non si tratta di un bug. Il server sta effettuando una breve pausa programmata. Riprova tra circa {{count}} minuti."
+        "scheduledBreak_one": "È normale e non si tratta di un bug. Il server sta effettuando una breve pausa programmata. I download riprenderanno automaticamente tra circa {{count}} minuto.",
+        "scheduledBreak_other": "È normale e non si tratta di un bug. Il server sta effettuando una breve pausa programmata. I download riprenderanno automaticamente tra circa {{count}} minuti."
       },
       "AudioConverterPage": {
         "text": "{{value1}} {{value2}}",

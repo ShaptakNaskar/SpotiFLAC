@@ -951,8 +951,8 @@
       "CooldownBanner": {
         "dismiss": "Liberar",
         "checkDetails": "Ver detalhes",
-        "scheduledBreak_one": "Isso é normal e não é um bug. O servidor está fazendo uma breve pausa programada. Tente novamente em cerca de {{count}} minuto.",
-        "scheduledBreak_other": "Isso é normal e não é um bug. O servidor está fazendo uma breve pausa programada. Tente novamente em cerca de {{count}} minutos."
+        "scheduledBreak_one": "Isso é normal e não é um bug. O servidor está fazendo uma breve pausa programada. Os downloads serão retomados automaticamente em cerca de {{count}} minuto.",
+        "scheduledBreak_other": "Isso é normal e não é um bug. O servidor está fazendo uma breve pausa programada. Os downloads serão retomados automaticamente em cerca de {{count}} minutos."
       },
       "ArtistInfo": {
         "errorDownloadingHeader": "Erro ao baixar cabeçalho: {{value1}}",

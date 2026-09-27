@@ -977,8 +977,8 @@
       "CooldownBanner": {
         "dismiss": "Rejeter",
         "checkDetails": "Voir les détails",
-        "scheduledBreak_one": "C’est normal et ce n’est pas un bug. Le serveur effectue une courte pause planifiée. Réessayez dans environ {{count}} minute.",
-        "scheduledBreak_other": "C’est normal et ce n’est pas un bug. Le serveur effectue une courte pause planifiée. Réessayez dans environ {{count}} minutes."
+        "scheduledBreak_one": "C’est normal et ce n’est pas un bug. Le serveur effectue une courte pause planifiée. Les téléchargements reprendront automatiquement dans environ {{count}} minute.",
+        "scheduledBreak_other": "C’est normal et ce n’est pas un bug. Le serveur effectue une courte pause planifiée. Les téléchargements reprendront automatiquement dans environ {{count}} minutes."
       },
       "DebugLoggerPage": {
         "failedToExport": "Échec de l'exportation : {{value1}}"
